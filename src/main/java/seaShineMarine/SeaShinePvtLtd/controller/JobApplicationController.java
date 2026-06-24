@@ -8,7 +8,7 @@ import seaShineMarine.SeaShinePvtLtd.service.JobApplicationService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/job-applications")
+@RequestMapping("/api/v1/job-applications")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:4200")
 public class JobApplicationController {

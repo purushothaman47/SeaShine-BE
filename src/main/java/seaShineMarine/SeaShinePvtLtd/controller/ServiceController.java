@@ -9,7 +9,7 @@ import seaShineMarine.SeaShinePvtLtd.service.ServiceService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/services")
+@RequestMapping("/api/v1/services")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:4200")
 public class ServiceController {

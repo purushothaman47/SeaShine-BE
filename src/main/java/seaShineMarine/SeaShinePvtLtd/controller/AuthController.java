@@ -7,7 +7,7 @@ import seaShineMarine.SeaShinePvtLtd.model.LoginResponse;
 import seaShineMarine.SeaShinePvtLtd.service.AuthService;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
 public class AuthController {

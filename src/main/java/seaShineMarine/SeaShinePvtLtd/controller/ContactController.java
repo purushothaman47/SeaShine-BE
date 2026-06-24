@@ -8,7 +8,7 @@ import seaShineMarine.SeaShinePvtLtd.service.ContactService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/contact")
+@RequestMapping("/api/v1/contact")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:4200")
 public class ContactController {

@@ -8,7 +8,7 @@ import seaShineMarine.SeaShinePvtLtd.service.ContentService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/content")
+@RequestMapping("/api/v1/content")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:4200")
 public class ContentController {
