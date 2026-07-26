@@ -50,9 +50,12 @@ public class JobApplicationRepositoryImpl
                  email,
                  phone,
                  resume_path,
+                 resume_original_filename,
+                 resume_content_type,
+                 resume_size,
                  cover_letter,
                  application_status)
-                VALUES (?, ?, ?, ?, ?, ?, ?)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """;
 
         return jdbcTemplate.update(
@@ -62,9 +65,24 @@ public class JobApplicationRepositoryImpl
                 application.getEmail(),
                 application.getPhone(),
                 application.getResumePath(),
+                application.getResumeOriginalFilename(),
+                application.getResumeContentType(),
+                application.getResumeSize(),
                 application.getCoverLetter(),
                 "PENDING"
         );
+    }
+
+    @Override
+    public int updateStatus(Integer id, String status) {
+
+        String sql = """
+                UPDATE job_applications
+                SET application_status = ?
+                WHERE id = ?
+                """;
+
+        return jdbcTemplate.update(sql, status, id);
     }
 
     @Override

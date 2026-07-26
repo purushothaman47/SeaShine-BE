@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.29.xsd">
+
+    <!--
+        Created (POST) publicly; listed/viewed/deleted by admins via
+        ContactRepositoryImpl / ContactRowMapper. status is always
+        forced to 'NEW' by the backend on insert.
+    -->
+    <changeSet id="005-create-contact-messages-table" author="seashine-marine">
+        <createTable tableName="contact_messages">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(100)"/>
+            <column name="phone" type="VARCHAR(20)"/>
+            <column name="subject" type="VARCHAR(200)"/>
+            <column name="message" type="TEXT"/>
+            <column name="status" type="VARCHAR(20)" defaultValue="NEW">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
+        </createTable>
+
+        <createIndex tableName="contact_messages" indexName="idx_contact_status">
+            <column name="status"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

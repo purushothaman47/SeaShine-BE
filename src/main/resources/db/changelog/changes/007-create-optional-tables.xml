@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.29.xsd">
+
+    <!--
+        These tables appeared in the original draft SQL script, but the
+        backend currently has no repository/controller for any of them.
+        Kept here, clearly separated, so the schema is ready for future
+        feature work without pretending the API already supports them.
+    -->
+    <changeSet id="007-create-service-images-table" author="seashine-marine">
+        <createTable tableName="service_images">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="service_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="image_url" type="VARCHAR(255)"/>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
+        </createTable>
+        <addForeignKeyConstraint
+                baseTableName="service_images" baseColumnNames="service_id"
+                referencedTableName="services" referencedColumnNames="id"
+                constraintName="fk_service_images_service"
+                onDelete="CASCADE"/>
+    </changeSet>
+
+    <changeSet id="008-create-testimonials-table" author="seashine-marine">
+        <createTable tableName="testimonials">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="client_name" type="VARCHAR(100)"/>
+            <column name="company_name" type="VARCHAR(100)"/>
+            <column name="feedback" type="TEXT"/>
+            <column name="rating" type="INT"/>
+            <column name="image_url" type="VARCHAR(255)"/>
+            <column name="status" type="VARCHAR(20)" defaultValue="ACTIVE"/>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="009-create-enquiry-requests-table" author="seashine-marine">
+        <createTable tableName="enquiry_requests">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="customer_name" type="VARCHAR(100)"/>
+            <column name="email" type="VARCHAR(100)"/>
+            <column name="phone" type="VARCHAR(20)"/>
+            <column name="service_type" type="VARCHAR(100)"/>
+            <column name="origin" type="VARCHAR(100)"/>
+            <column name="destination" type="VARCHAR(100)"/>
+            <column name="message" type="TEXT"/>
+            <column name="status" type="VARCHAR(20)" defaultValue="NEW"/>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="010-create-audit-logs-table" author="seashine-marine">
+        <createTable tableName="audit_logs">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="admin_id" type="INT"/>
+            <column name="action" type="VARCHAR(255)"/>
+            <column name="module_name" type="VARCHAR(100)"/>
+            <column name="description" type="TEXT"/>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
+        </createTable>
+        <addForeignKeyConstraint
+                baseTableName="audit_logs" baseColumnNames="admin_id"
+                referencedTableName="admin_users" referencedColumnNames="id"
+                constraintName="fk_audit_logs_admin"
+                onDelete="SET NULL"/>
+    </changeSet>
+
+</databaseChangeLog>

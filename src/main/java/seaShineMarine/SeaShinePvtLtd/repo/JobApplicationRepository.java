@@ -13,5 +13,7 @@ public interface JobApplicationRepository {
     int saveApplication(
             JobApplicationEntity application);
 
+    int updateStatus(Integer id, String status);
+
     int deleteApplication(Integer id);
 }

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.29.xsd">
+
+    <!--
+        Full CRUD via ServiceRepositoryImpl / ServiceRowMapper.
+        Column names match that class's SQL exactly.
+    -->
+    <changeSet id="002-create-services-table" author="seashine-marine">
+        <createTable tableName="services">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="service_name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="short_description" type="VARCHAR(255)"/>
+            <column name="description" type="TEXT"/>
+            <column name="image_url" type="VARCHAR(255)"/>
+            <column name="display_order" type="INT" defaultValueNumeric="1">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(20)" defaultValue="ACTIVE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="INT"/>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="services" baseColumnNames="created_by"
+                referencedTableName="admin_users" referencedColumnNames="id"
+                constraintName="fk_services_created_by"
+                onDelete="SET NULL"/>
+
+        <createIndex tableName="services" indexName="idx_services_display_order">
+            <column name="display_order"/>
+        </createIndex>
+        <createIndex tableName="services" indexName="idx_services_status">
+            <column name="status"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

@@ -27,8 +27,13 @@ public class JobApplicationRowMapper
         application.setPhone(rs.getString("phone"));
         application.setResumePath(
                 rs.getString("resume_path"));
-        application.setCoverLetter(
-                rs.getString("cover_letter"));
+        application.setResumeOriginalFilename(
+                rs.getString("resume_original_filename"));
+        application.setResumeContentType(
+                rs.getString("resume_content_type"));
+        application.setResumeSize(
+                rs.getObject("resume_size", Long.class));
+        application.setCoverLetter(rs.getString("cover_letter"));
         application.setApplicationStatus(
                 rs.getString("application_status"));
 

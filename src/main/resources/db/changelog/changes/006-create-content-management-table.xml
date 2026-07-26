@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.29.xsd">
+
+    <!--
+        Full CRUD via ContentRepositoryImpl / ContentRowMapper.
+        section_name is looked up directly by
+        GET /api/v1/content/section/{sectionName}, so it must stay unique.
+    -->
+    <changeSet id="006-create-content-management-table" author="seashine-marine">
+        <createTable tableName="content_management">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="section_name" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="uq_content_section_name"/>
+            </column>
+            <column name="title" type="VARCHAR(255)"/>
+            <column name="subtitle" type="VARCHAR(255)"/>
+            <column name="content" type="TEXT"/>
+            <column name="image_url" type="VARCHAR(255)"/>
+            <column name="status" type="VARCHAR(20)" defaultValue="ACTIVE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_by" type="INT"/>
+            <column name="updated_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="content_management" baseColumnNames="updated_by"
+                referencedTableName="admin_users" referencedColumnNames="id"
+                constraintName="fk_content_updated_by"
+                onDelete="SET NULL"/>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.29.xsd">
+
+    <!--
+        Master changelog — Spring Boot's Liquibase auto-configuration
+        looks for this exact file by default:
+            src/main/resources/db/changelog/db.changelog-master.xml
+
+        It only lists include order; each table/seed/migration lives in
+        its own file under changes/ so history stays easy to read in a
+        diff. New changes always get a new file appended at the bottom —
+        never edit an already-applied changeSet.
+    -->
+
+    <include file="db/changelog/changes/001-create-admin-users-table.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/changes/002-create-services-table.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/changes/003-create-careers-table.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/changes/004-create-job-applications-table.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/changes/005-create-contact-messages-table.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/changes/006-create-content-management-table.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/changes/007-create-optional-tables.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/changes/008-seed-data.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/changes/009-add-resume-file-columns.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/changes/010-clear-legacy-resume-link-seed.xml" relativeToChangelogFile="false"/>
+
+</databaseChangeLog>

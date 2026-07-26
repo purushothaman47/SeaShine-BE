@@ -27,6 +27,17 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                        // Let Spring Boot's internal error dispatch through. Without
+                        // this, any exception thrown from an authenticated endpoint
+                        // (e.g. a 404 from downloadResume) gets re-dispatched to
+                        // /error internally, JwtAuthenticationFilter skips that
+                        // internal dispatch by default (OncePerRequestFilter's
+                        // shouldNotFilterErrorDispatch() defaults to true), and
+                        // AuthorizationFilter then denies the now-anonymous
+                        // re-dispatch with 403 — masking the real status code.
+                        .requestMatchers("/error")
+                        .permitAll()
+
                         // Admin login stays open so the admin panel can authenticate.
                         .requestMatchers("/api/v1/auth/**")
                         .permitAll()

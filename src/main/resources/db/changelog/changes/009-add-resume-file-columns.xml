@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.29.xsd">
+
+    <!--
+        Resume upload feature: job_applications.resume_path now stores a
+        generated on-disk filename (e.g. "3f2a1c4e-....pdf") written by
+        FileStorageServiceImpl, instead of a free-text URL typed by the
+        applicant. These three columns hold the metadata needed to show
+        a sensible filename to admins and stream the file back correctly
+        on download.
+    -->
+    <changeSet id="016-add-resume-file-columns" author="seashine-marine">
+        <addColumn tableName="job_applications">
+            <column name="resume_original_filename" type="VARCHAR(255)"
+                    afterColumn="resume_path"/>
+            <column name="resume_content_type" type="VARCHAR(150)"
+                    afterColumn="resume_original_filename"/>
+            <column name="resume_size" type="BIGINT"
+                    afterColumn="resume_content_type"/>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

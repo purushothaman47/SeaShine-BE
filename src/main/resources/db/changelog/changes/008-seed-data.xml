@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.29.xsd">
+
+    <!--
+        Seed data so both Angular apps have something to show on first
+        run. runOnChange="false" (the default) means this only runs
+        once — safe to leave in place permanently.
+    -->
+    <changeSet id="011-seed-admin-user" author="seashine-marine" context="dev,demo">
+        <!--
+            NOTE: AuthServiceImpl currently compares passwords with a
+            plain String.equals() (no hashing), so this seed password
+            is plain text to match. Hash passwords (e.g. BCrypt) before
+            any real deployment and update AuthServiceImpl accordingly.
+        -->
+        <insert tableName="admin_users">
+            <column name="username" value="admin"/>
+            <column name="password" value="admin123"/>
+            <column name="full_name" value="Site Administrator"/>
+            <column name="email" value="admin@seashinemarine.com"/>
+            <column name="role" value="ADMIN"/>
+            <column name="status" value="ACTIVE"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="012-seed-services" author="seashine-marine" context="dev,demo">
+        <insert tableName="services">
+            <column name="service_name" value="Ship Management"/>
+            <column name="short_description" value="Comprehensive Vessel Operations"/>
+            <column name="description" value="Comprehensive management solutions for safe and efficient vessel operations, covering technical, crew and commercial management."/>
+            <column name="image_url" value="ship-management.jpg"/>
+            <column name="display_order" valueNumeric="1"/>
+            <column name="status" value="ACTIVE"/>
+            <column name="created_by" valueNumeric="1"/>
+        </insert>
+        <insert tableName="services">
+            <column name="service_name" value="Crew Management"/>
+            <column name="short_description" value="Skilled &amp; Certified Crew"/>
+            <column name="description" value="We provide skilled, certified and reliable crew to meet your vessel requirements, backed by rigorous training and compliance checks."/>
+            <column name="image_url" value="crew-management.jpg"/>
+            <column name="display_order" valueNumeric="2"/>
+            <column name="status" value="ACTIVE"/>
+            <column name="created_by" valueNumeric="1"/>
+        </insert>
+        <insert tableName="services">
+            <column name="service_name" value="Marine Consultancy"/>
+            <column name="short_description" value="Compliance &amp; Operations Advisory"/>
+            <column name="description" value="Expert advice and support for compliance, operations and marine solutions tailored to your fleet."/>
+            <column name="image_url" value="marine-consultancy.jpg"/>
+            <column name="display_order" valueNumeric="3"/>
+            <column name="status" value="ACTIVE"/>
+            <column name="created_by" valueNumeric="1"/>
+        </insert>
+        <insert tableName="services">
+            <column name="service_name" value="Logistics Services"/>
+            <column name="short_description" value="End-to-End Supply Chain"/>
+            <column name="description" value="End-to-end logistics and supply chain solutions tailored to your business needs, from port to destination."/>
+            <column name="image_url" value="logistics-services.jpg"/>
+            <column name="display_order" valueNumeric="4"/>
+            <column name="status" value="ACTIVE"/>
+            <column name="created_by" valueNumeric="1"/>
+        </insert>
+        <insert tableName="services">
+            <column name="service_name" value="Ocean Freight"/>
+            <column name="short_description" value="Global Sea Transport"/>
+            <column name="description" value="Worldwide cargo shipping solutions with reliable transit times and full cargo tracking."/>
+            <column name="image_url" value="ocean-freight.jpg"/>
+            <column name="display_order" valueNumeric="5"/>
+            <column name="status" value="ACTIVE"/>
+            <column name="created_by" valueNumeric="1"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="013-seed-careers" author="seashine-marine" context="dev,demo">
+        <insert tableName="careers">
+            <column name="job_title" value="Marine Engineer"/>
+            <column name="department" value="Engineering"/>
+            <column name="location" value="Mumbai, India"/>
+            <column name="experience_required" value="3-5 years"/>
+            <column name="employment_type" value="Full Time"/>
+            <column name="description" value="Responsible for the operation and maintenance of all engine room machinery and equipment."/>
+            <column name="status" value="OPEN"/>
+            <column name="created_by" valueNumeric="1"/>
+        </insert>
+        <insert tableName="careers">
+            <column name="job_title" value="Deck Cadet"/>
+            <column name="department" value="Deck"/>
+            <column name="location" value="Chennai, India"/>
+            <column name="experience_required" value="0-1 years"/>
+            <column name="employment_type" value="Full Time"/>
+            <column name="description" value="Entry-level position assisting deck officers with navigation and cargo operations under training."/>
+            <column name="status" value="OPEN"/>
+            <column name="created_by" valueNumeric="1"/>
+        </insert>
+        <insert tableName="careers">
+            <column name="job_title" value="HR Executive"/>
+            <column name="department" value="Human Resources"/>
+            <column name="location" value="Mumbai, India"/>
+            <column name="experience_required" value="2-4 years"/>
+            <column name="employment_type" value="Full Time"/>
+            <column name="description" value="Manage crew recruitment, onboarding and shore-staff HR operations."/>
+            <column name="status" value="OPEN"/>
+            <column name="created_by" valueNumeric="1"/>
+        </insert>
+        <insert tableName="careers">
+            <column name="job_title" value="Captain"/>
+            <column name="department" value="Deck"/>
+            <column name="location" value="Mumbai, India"/>
+            <column name="experience_required" value="10+ years"/>
+            <column name="employment_type" value="Full Time"/>
+            <column name="description" value="Command vessel operations, ensuring safety, regulatory compliance and crew welfare."/>
+            <column name="status" value="CLOSED"/>
+            <column name="created_by" valueNumeric="1"/>
+        </insert>
+        <insert tableName="careers">
+            <column name="job_title" value="Safety Officer"/>
+            <column name="department" value="HSE"/>
+            <column name="location" value="Chennai, India"/>
+            <column name="experience_required" value="4-6 years"/>
+            <column name="employment_type" value="Full Time"/>
+            <column name="description" value="Oversee shipboard safety programs, drills and incident reporting."/>
+            <column name="status" value="OPEN"/>
+            <column name="created_by" valueNumeric="1"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="014-seed-content-management" author="seashine-marine" context="dev,demo">
+        <insert tableName="content_management">
+            <column name="section_name" value="about_us"/>
+            <column name="title" value="Your Trusted Partner in Marine Services"/>
+            <column name="subtitle" value="About Us"/>
+            <column name="content" value="SeaShine Marine Pvt Ltd offers a wide range of marine services with a strong commitment to safety, quality and customer satisfaction. Our experienced team and global network ensure reliable support, every time."/>
+            <column name="image_url" value="about-ship.jpg"/>
+            <column name="status" value="ACTIVE"/>
+            <column name="updated_by" valueNumeric="1"/>
+        </insert>
+        <insert tableName="content_management">
+            <column name="section_name" value="home_hero"/>
+            <column name="title" value="Navigating Excellence. Delivering Trust."/>
+            <column name="subtitle" value="Welcome to SeaShine Marine"/>
+            <column name="content" value="SeaShine Marine Pvt Ltd is a leading marine service provider, delivering reliable, efficient and innovative solutions across the globe."/>
+            <column name="image_url" value="hero-ship.jpg"/>
+            <column name="status" value="ACTIVE"/>
+            <column name="updated_by" valueNumeric="1"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="015-seed-sample-application-and-message" author="seashine-marine" context="dev,demo">
+        <insert tableName="job_applications">
+            <column name="career_id" valueNumeric="1"/>
+            <column name="applicant_name" value="Rahul Sharma"/>
+            <column name="email" value="rahul.sharma@example.com"/>
+            <column name="phone" value="+91 90000 00001"/>
+            <column name="resume_path" value="https://drive.google.com/sample-resume-1"/>
+            <column name="cover_letter" value="I have 4 years of experience as a marine engineer and would love to join SeaShine Marine."/>
+            <column name="application_status" value="PENDING"/>
+        </insert>
+        <insert tableName="contact_messages">
+            <column name="name" value="John Doe"/>
+            <column name="email" value="john.doe@example.com"/>
+            <column name="phone" value="+91 90000 00002"/>
+            <column name="subject" value="Enquiry about Ocean Freight"/>
+            <column name="message" value="Hi, could you share your rates for a Mumbai to Singapore container shipment?"/>
+            <column name="status" value="NEW"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
