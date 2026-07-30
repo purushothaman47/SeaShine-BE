@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.29.xsd">
+
+    <!--
+        Standalone gallery: admin-uploaded marketing photos, not tied to
+        any specific service. Backs GalleryRepositoryImpl / GalleryRowMapper.
+        image_filename is a generated on-disk name (see ImageStorageServiceImpl),
+        same pattern as job_applications.resume_path.
+    -->
+    <changeSet id="018-create-gallery-table" author="seashine-marine">
+        <createTable tableName="gallery">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(150)"/>
+            <column name="image_filename" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="image_original_filename" type="VARCHAR(255)"/>
+            <column name="image_content_type" type="VARCHAR(100)"/>
+            <column name="image_size" type="BIGINT"/>
+            <column name="display_order" type="INT" defaultValueNumeric="1">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(20)" defaultValue="ACTIVE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="uploaded_by" type="INT"/>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="gallery" baseColumnNames="uploaded_by"
+                referencedTableName="admin_users" referencedColumnNames="id"
+                constraintName="fk_gallery_uploaded_by"
+                onDelete="SET NULL"/>
+
+        <createIndex tableName="gallery" indexName="idx_gallery_display_order">
+            <column name="display_order"/>
+        </createIndex>
+        <createIndex tableName="gallery" indexName="idx_gallery_status">
+            <column name="status"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

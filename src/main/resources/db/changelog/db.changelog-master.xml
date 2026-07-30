@@ -26,5 +26,5 @@
     <include file="db/changelog/changes/008-seed-data.xml" relativeToChangelogFile="false"/>
     <include file="db/changelog/changes/009-add-resume-file-columns.xml" relativeToChangelogFile="false"/>
     <include file="db/changelog/changes/010-clear-legacy-resume-link-seed.xml" relativeToChangelogFile="false"/>
-
+    <include file="db/changelog/changes/011-create-gallery-table.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>
